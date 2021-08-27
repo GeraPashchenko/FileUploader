@@ -18,6 +18,10 @@ module.exports.errors = {
   invalidId: {
     message: 'Invalid ObjectId!',
     statusCode: 400
+  },
+  authentificationError: {
+    message: 'Wrong password!',
+    statusCode: 422
   }
 }
 

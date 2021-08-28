@@ -34,7 +34,14 @@ User.methods.generateJWT = function () {
     id: this._id,
     exp: parseInt(expirationDate.getTime() / 1000, 10),
   }, process.env.JWT_SECRET);
-}
+};
+
+User.methods.getMe = function () {
+  return {
+    id: this._id,
+    username: this.username,
+  }
+};
 
 const UserModel = mongoose.model('User', User);
 

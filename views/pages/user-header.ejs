@@ -1,0 +1,44 @@
+<div id="userUnsigned">
+  <p> Please, <a href="/login-page"> Sign in </a> to view your files or add one </p>
+  <p> Still don't have an account? Please <a href="/register-page"> Sign up </a></p>
+</div>
+
+<div id="userSigned" hidden="true">
+  <p id="userGreetings"></p>
+  <button onclick="logout()"> sign out </button>
+</div>
+<ul>
+  <li>
+    <a href="/login-page">
+      Sign in
+    </a>
+  </li>
+  <li>
+    <a href="/register-page">
+      Sign up
+    </a>
+  </li>
+</ul>
+
+<script>
+  function logout() {
+    if (localStorage.getItem("user") && localStorage.getItem("token")) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      $("#userSigned").hide();
+      $("#userUnsigned").show();
+    }
+  }
+
+  $(document).ready(function () {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      $("#userUnsigned").hide();
+      $("#userGreetings").text(`Hello, ${user.username}!`);
+      $("#userSigned").show();
+    } else {
+      $("#userSigned").hide();
+      $("#userUnsigned").show();
+    }
+  });
+</script>

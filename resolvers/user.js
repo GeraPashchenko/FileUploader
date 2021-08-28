@@ -12,7 +12,7 @@ module.exports.getUserById = async (req, res, next) => {
   res.json(user);
 };
 
-module.exports.addUser = async (req, res, next) => {
+module.exports.registerUser = async (req, res, next) => {
   const user = await UserModel.findOne({ username: req.body.username });
 
   if (user) return next(errors.userExists);
@@ -22,7 +22,11 @@ module.exports.addUser = async (req, res, next) => {
   userInstanse.password = req.body.password;
 
   await userInstanse.save();
-  res.json(userInstanse);
+  const createdUser = await UserModel.findOne({ username: req.body.username });
+  const createdUserData = createdUser.getMe();
+  const token = await createdUser.generateJWT();
+
+  res.json({...createdUserData, token});
 };
 
 module.exports.login = async (req, res, next) => {
@@ -33,7 +37,7 @@ module.exports.login = async (req, res, next) => {
   const validPassword = await user.validatePassword(req.body.password);
 
   if(!validPassword) return next(errors.authentificationError);
-
+  const userdata = user.getMe();
   const token = await user.generateJWT();
-  res.json({token});
+  res.json({...userdata, token});
 }

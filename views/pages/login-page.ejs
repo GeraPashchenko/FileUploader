@@ -36,7 +36,7 @@
 </head>
 
 <body>
-  <form id="login" name="login" action="/api/user/login" method="post">
+  <form id="login" name="login" action="/api/users/login" method="post">
     <h2> Sign in </h2>
     <label for="inputUsername"> Username </label>
     <input type="username" id="username" name="username" placeholder="Username" required="">
@@ -57,7 +57,6 @@
       e.preventDefault();
       const formData = new FormData(document.forms.login)
       const actionurl = e.currentTarget.action;
-      const data = { username: formData.get("username"), password: formData.get("password") }
 
       $.ajax({
         url: actionurl,
@@ -73,7 +72,7 @@
             $("#error").show()
           } else {
             localStorage.setItem('user', JSON.stringify({ id: responseData.id, username: responseData.username }));
-            localStorage.setItem('token', JSON.stringify({ token: responseData.token }));
+            localStorage.setItem('token', JSON.stringify(responseData.token));
             $("#error").hide();
             window.location.href = '/';
           }

@@ -3,6 +3,10 @@ module.exports.errors = {
     message: 'File allready exists!',
     statusCode: 400
   },
+  fileIsNotExists: {
+    message: 'File is not exists!',
+    statusCode: 400
+  },
   wrongPassword: {
     message: 'Wrong password!',
     statusCode: 400
@@ -22,6 +26,10 @@ module.exports.errors = {
   authentificationError: {
     message: 'Wrong password!',
     statusCode: 422
+  },
+  wrongFileType: {
+    message: 'Only images are allowed!',
+    statusCode: 500
   }
 }
 

@@ -31,7 +31,6 @@ module.exports.registerUser = async (req, res, next) => {
 
 module.exports.login = async (req, res, next) => {
   const user = await UserModel.findOne({ username: req.body.username });
-
   if (!user) return next(errors.userIsNotExists);
 
   const validPassword = await user.validatePassword(req.body.password);

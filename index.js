@@ -7,7 +7,8 @@ const { errorsMiddleware } = require('./middleware/error.middleware');
 const path = require("path");
 const bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', router);
 app.use(errorsMiddleware);
 app.set('views', path.join(__dirname, '/views/pages')); 
@@ -16,7 +17,7 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => res.render('index'))
 app.get('/register-page', (req, res) => res.render('register-page'));
 app.get('/login-page', (req, res) => res.render('login-page'));
-
+app.get('/upload-file', (req, res)=> res.render('file-upload'));
 
 app.listen(process.env.SERVER_PORT, () => {
   mongoose.connect(process.env.MONGODB_CONNECTION_STRING, { useNewUrlParser: true })

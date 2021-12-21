@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "npm run start:db && node index.js",
+    "start:db": "docker-compose up -d",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
